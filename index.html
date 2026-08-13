@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piala Soeratin 2026 - Kutai Barat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f0f2f5;
+            color: #1a1a1a;
+        }
+        .header {
+            background: linear-gradient(135deg, #1B5E20, #2E7D32);
+            color: white;
+            padding: 20px 16px 12px;
+            text-align: center;
+            position: relative;
+        }
+        .header .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #F9A825;
+            border: 2px solid #F9A825;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .header h1 span {
+            color: #F9A825;
+        }
+        .header .sub {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+        .slogan {
+            background: #F9A825;
+            color: #1B5E20;
+            font-weight: bold;
+            padding: 6px 0;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .tabs {
+            display: flex;
+            background: #fff;
+            border-bottom: 3px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .tabs button {
+            flex: 1;
+            padding: 14px 0;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 700;
+            color: #777;
+            cursor: pointer;
+            transition: 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+        .tabs button.active {
+            color: #1B5E20;
+            border-bottom-color: #1B5E20;
+        }
+        .tabs button:last-child.active {
+            border-bottom-color: #0D47A1;
+        }
+        .content {
+            max-width: 1100px;
+            margin: 16px auto;
+            padding: 0 12px 80px;
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #1B5E20;
+            border-left: 4px solid #F9A825;
+            padding-left: 10px;
+        }
+        .card h2 .badge {
+            font-size: 14px;
+            background: #e0e0e0;
+            color: #333;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+        .grup-wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .grup-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            border-top: 4px solid #1B5E20;
+        }
+        .grup-box .grup-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #1B5E20;
+        }
+        .grup-box table {
+            width: 100%;
+            font-size: 13px;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+        .grup-box table th {
+            background: #e9ecef;
+            padding: 4px 2px;
+            font-size: 11px;
+            text-align: center;
+        }
+        .grup-box table td {
+            padding: 4px 2px;
+            border-bottom: 1px solid #e9ecef;
+            text-align: center;
+        }
+        .grup-box table tr:last-child td {
+            border-bottom: none;
+        }
+        .grup-box .rank {
+            font-weight: 700;
+            color: #555;
+            width: 22px;
+        }
+        .grup-box .tim {
+            font-weight: 600;
+            text-align: left;
+        }
+        .grup-box .poin {
+            font-weight: 700;
+            color: #1B5E20;
+        }
+        .pertandingan-list {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 2px dashed #dee2e6;
+        }
+        .pertandingan-list .sub-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .pertandingan-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 8px;
+            font-size: 13px;
+            background: white;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            border-left: 3px solid #F9A825;
+        }
+        .pertandingan-item .skor {
+            font-weight: 700;
+            color: #1B5E20;
+        }
+        .pertandingan-item .gol {
+            font-size: 11px;
+            color: #666;
+        }
+        .top-skor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .top-skor-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+            border-left: 4px solid #F9A825;
+        }
+        .top-skor-item .nama {
+            font-weight: 600;
+        }
+        .top-skor-item .gol {
+            background: #1B5E20;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .kartu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        .kartu-item .kuning {
+            color: #f9a825;
+        }
+        .kartu-item .merah {
+            color: #d32f2f;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 12px;
+            font-size: 13px;
+            color: #777;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 20px;
+        }
+        .footer strong {
+            color: #1B5E20;
+        }
+        .kosong {
+            text-align: center;
+            color: #999;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+        .kartu-table {
+            width: 100%;
+            font-size: 13px;
+            border-collapse: collapse;
+        }
+        .kartu-table th {
+            background: #e9ecef;
+            padding: 6px 4px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .kartu-table td {
+            padding: 5px 4px;
+            border-bottom: 1px solid #e9ecef;
+            text-align: center;
+        }
+        .badge-kuning {
+            background: #f9a825;
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        .badge-merah {
+            background: #d32f2f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        @media (min-width: 768px) {
+            .grup-wrap {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (min-width: 1024px) {
+            .grup-wrap {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        .sub-info {
+            font-size: 12px;
+            color: #888;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-placeholder">⚽</div>
+            <div>
+                <h1>PIALA <span>SOERATIN</span> 2026</h1>
+                <div class="sub">Kabupaten Kutai Barat</div>
+            </div>
+        </div>
+    </div>
+    <div class="slogan">#NarkobaNo #SepakbolaYes</div>
+
+    <!-- ===== TABS ===== -->
+    <div class="tabs" id="tabHeader">
+        <button class="active" data-tab="tabU13">🤩 U-13</button>
+        <button data-tab="tabU15">⭐ U-15</button>
+    </div>
+
+    <!-- ===== CONTENT ===== -->
+    <div class="content">
+
+        <!-- ==================== TAB U-13 ==================== -->
+        <div class="tab-panel active" id="tabU13">
+            <div class="card">
+                <h2>🏆 KLASEMEN U-13 <span class="badge">Otomatis</span></h2>
+                <div class="grup-wrap" id="klasemenU13">
+                    <!-- Diisi oleh JS -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚽ TOP SKOR U-13</h2>
+                <div class="top-skor-list" id="topSkorU13">
+                    <!-- Diisi oleh JS -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🟨🟥 KARTU U-13</h2>
+                <div id="kartuU13">
+                    <!-- Diisi oleh JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB U-15 ==================== -->
+        <div class="tab-panel" id="tabU15">
+            <div class="card">
+                <h2>🏆 KLASEMEN U-15 <span class="badge">Otomatis</span></h2>
+                <div class="grup-wrap" id="klasemenU15">
+                    <!-- Diisi oleh JS -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚽ TOP SKOR U-15</h2>
+                <div class="top-skor-list" id="topSkorU15">
+                    <!-- Diisi oleh JS -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🟨🟥 KARTU U-15</h2>
+                <div id="kartuU15">
+                    <!-- Diisi oleh JS -->
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>Piala Soeratin 2026</strong> — Kabupaten Kutai Barat<br />
+            Powered by PSSI Kutai Barat
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // DATA PERTANDINGAN
+        // ============================================================
+
+        const pertandingan = {
+            u13: {
+                A: [
+                    { tuan: 'Jaya Prana', tamu: 'Persimuja', skorTuan: 0, skorTamu: 0, gol: [] },
+                    { tuan: 'Persimen X Diandra', tamu: 'Geiska Sport', skorTuan: 2, skorTamu: 1, 
+                      gol: [
+                          { nama: 'Bernades T R', no: 16, tim: 'Persimen X Diandra' },
+                          { nama: 'Octavianus A R', no: 4, tim: 'Persimen X Diandra' },
+                          { nama: 'Cedric G S', no: 18, tim: 'Geiska Sport' }
+                      ] 
+                    }
+                ],
+                B: [],
+                C: [
+                    { tuan: 'Azellen Soccer', tamu: 'Kubar Soccer School', skorTuan: 9, skorTamu: 0,
+                      gol: [
+                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                          { nama: 'Mahardika', no: 78, tim: 'Azellen Soccer' },
+                          { nama: 'Mahardika', no: 78, tim: 'Azellen Soccer' },
+                          { nama: 'Hardianto', no: 77, tim: 'Azellen Soccer' },
+                          { nama: 'N Kinan F', no: 56, tim: 'Azellen Soccer' },
+                          { nama: 'Risky Simin', no: 28, tim: 'Azellen Soccer' }
+                      ]
+                    }
+                ]
+            },
+            u15: {
+                A: [
+                    { tuan: 'Geiska Sport', tamu: 'Neofeliz FA', skorTuan: 0, skorTamu: 6,
+                      gol: [
+                          { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
+                          { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
+                          { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
+                          { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
+                          { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
+                          { nama: 'Dehis R K', no: 10, tim: 'Neofeliz FA' }
+                      ]
+                    },
+                    { tuan: 'Menarung', tamu: 'PS Bigung', skorTuan: 4, skorTamu: 0,
+                      gol: [
+                          { nama: 'Stefano', no: 14, tim: 'Menarung' },
+                          { nama: 'Stefano', no: 14, tim: 'Menarung' },
+                          { nama: 'Neymar', no: 8, tim: 'Menarung' },
+                          { nama: 'Fajar C S', no: 9, tim: 'Menarung' }
+                      ]
+                    }
+                ],
+                B: [
+                    { tuan: 'PSG Muara Gusiq', tamu: 'Persimen X Diandra', skorTuan: 6, skorTamu: 0,
+                      gol: [
+                          { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
+                          { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
+                          { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
+                          { nama: 'Bilfaqih R G', no: 14, tim: 'PSG Muara Gusiq' },
+                          { nama: 'Bilfaqih R G', no: 14, tim: 'PSG Muara Gusiq' },
+                          { nama: 'Rifki Aditia', no: 3, tim: 'PSG Muara Gusiq' }
+                      ]
+                    }
+                ],
+                C: [],
+                D: []
+            }
+        };
+
+        // ============================================================
+        // DATA KARTU
+        // ============================================================
+
+        const kartuData = {
+            u13: [
+                { no: 0, nama: 'Lexsi', tim: 'Jaya Prana', kuning: 1, merah: 0 }
+            ],
+            u15: [
+                { no: 1, nama: 'Rifana', tim: 'PSG Muara Gusiq', kuning: 1, merah: 0 },
+                { no: 30, nama: 'Christeon H F', tim: 'Persimen X Diandra', kuning: 1, merah: 0 },
+                { no: 1, nama: 'Lesky C', tim: 'Persimen X Diandra', kuning: 0, merah: 1 }
+            ]
+        };
+
+        // ============================================================
+        // DAFTAR TIM PER GRUP
+        // ============================================================
+
+        const timPerGrup = {
+            u13: {
+                A: ['Persimen X Diandra', 'Geiska Sport', 'Persimuja', 'Jaya Prana'],
+                B: ['Akademi Nyuatan Bersatu', 'PS Bigung', 'Gelora Putra Sendawar', 'Petras'],
+                C: ['Menarung', 'Azellen Soccer', 'Kubar Soccer School']
+            },
+            u15: {
+                A: ['Geiska Sport', 'Neofeliz FA', 'PS Bigung', 'Menarung'],
+                B: ['PSG Muara Gusiq', 'Persimen X Diandra', 'Delirium Muara Tae'],
+                C: ['Persimuja', 'Kerbangan SKD', 'Asira'],
+                D: ['Gelora Putra Sendawar', 'Jaya Prana', 'Akademi Nyuatan Bersatu']
+            }
+        };
+
+        // ============================================================
+        // FUNGSI HITUNG KLASEMEN PER GRUP
+        // ============================================================
+
+        function hitungKlasemenPerGrup(timGrup, matches) {
+            const klasemen = {};
+
+            // Inisialisasi semua tim di grup ini
+            for (const tim of timGrup) {
+                klasemen[tim] = { tim, m: 0, w: 0, d: 0, l: 0, gm: 0, gk: 0, p: 0 };
+            }
+
+            // Proses pertandingan
+            for (const match of matches) {
+                const tuan = match.tuan;
+                const tamu = match.tamu;
+                const skorTuan = match.skorTuan;
+                const skorTamu = match.skorTamu;
+
+                if (!klasemen[tuan] || !klasemen[tamu]) continue;
+
+                klasemen[tuan].m += 1;
+                klasemen[tamu].m += 1;
+                klasemen[tuan].gm += skorTuan;
+                klasemen[tuan].gk += skorTamu;
+                klasemen[tamu].gm += skorTamu;
+                klasemen[tamu].gk += skorTuan;
+
+                if (skorTuan > skorTamu) {
+                    klasemen[tuan].w += 1;
+                    klasemen[tuan].p += 3;
+                    klasemen[tamu].l += 1;
+                } else if (skorTuan < skorTamu) {
+                    klasemen[tamu].w += 1;
+                    klasemen[tamu].p += 3;
+                    klasemen[tuan].l += 1;
+                } else {
+                    klasemen[tuan].d += 1;
+                    klasemen[tuan].p += 1;
+                    klasemen[tamu].d += 1;
+                    klasemen[tamu].p += 1;
+                }
+            }
+
+            // Konversi ke array dan sorting
+            const result = Object.values(klasemen);
+            result.sort((a, b) => {
+                if (b.p !== a.p) return b.p - a.p;
+                const selisihA = a.gm - a.gk;
+                const selisihB = b.gm - b.gk;
+                if (selisihB !== selisihA) return selisihB - selisihA;
+                return b.gm - a.gm;
+            });
+
+            return result;
+        }
+
+        // ============================================================
+        // FUNGSI HITUNG TOP SKOR
+        // ============================================================
+
+        function hitungTopSkor(pertandinganGrup) {
+            const golMap = {};
+
+            for (const g of Object.keys(pertandinganGrup)) {
+                const matches = pertandinganGrup[g] || [];
+                for (const match of matches) {
+                    const gol = match.gol || [];
+                    for (const g of gol) {
+                        const key = `${g.nama}|${g.no}|${g.tim}`;
+                        if (!golMap[key]) {
+                            golMap[key] = { nama: g.nama, no: g.no, tim: g.tim, gol: 0 };
+                        }
+                        golMap[key].gol += 1;
+                    }
+                }
+            }
+
+            const result = Object.values(golMap);
+            result.sort((a, b) => b.gol - a.gol);
+            return result;
+        }
+
+        // ============================================================
+        // RENDER FUNGSI
+        // ============================================================
+
+        function renderKlasemen(containerId, kategori, pertandinganGrup) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const tims = timPerGrup[kategori];
+            let html = '';
+
+            for (const g of Object.keys(tims).sort()) {
+                const timGrup = tims[g];
+                const matches = pertandinganGrup[g] || [];
+                const klasemen = hitungKlasemenPerGrup(timGrup, matches);
+
+                html += `
+                    <div class="grup-box">
+                        <div class="grup-title">GRUP ${g}</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th style="text-align:left">Tim</th>
+                                    <th>M</th>
+                                    <th>W</th>
+                                    <th>D</th>
+                                    <th>L</th>
+                                    <th>GM</th>
+                                    <th>GK</th>
+                                    <th>P</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${klasemen.map((row, idx) => `
+                                    <tr>
+                                        <td class="rank">${idx + 1}</td>
+                                        <td class="tim">${row.tim}</td>
+                                        <td>${row.m}</td>
+                                        <td>${row.w}</td>
+                                        <td>${row.d}</td>
+                                        <td>${row.l}</td>
+                                        <td>${row.gm}</td>
+                                        <td>${row.gk}</td>
+                                        <td class="poin">${row.p}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+
+                        ${matches.length > 0 ? `
+                        <div class="pertandingan-list">
+                            <div class="sub-title">📋 Hasil Pertandingan</div>
+                            ${matches.map(m => `
+                                <div class="pertandingan-item">
+                                    <span>
+                                        <strong>${m.tuan}</strong> vs <strong>${m.tamu}</strong>
+                                        ${m.gol && m.gol.length > 0 ? `
+                                            <span class="gol">
+                                                (${m.gol.map(g => `${g.nama} #${g.no}`).join(', ')})
+                                            </span>
+                                        ` : ''}
+                                    </span>
+                                    <span class="skor">${m.skorTuan} - ${m.skorTamu}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : `<div class="kosong" style="padding:8px 0;font-size:12px;">Belum ada pertandingan</div>`}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderTopSkor(containerId, pertandinganGrup) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const topSkor = hitungTopSkor(pertandinganGrup);
+
+            if (topSkor.length === 0) {
+                container.innerHTML = '<div class="kosong">Belum ada data top skor</div>';
+                return;
+            }
+
+            let html = '';
+            topSkor.forEach(item => {
+                html += `
+                    <div class="top-skor-item">
+                        <span class="nama">${item.nama} (#${item.no}) - ${item.tim}</span>
+                        <span class="gol">${item.gol} Gol</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderKartu(containerId, kartu) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            if (!kartu || kartu.length === 0) {
+                container.innerHTML = '<div class="kosong">Belum ada data kartu</div>';
+                return;
+            }
+
+            let html = `
+                <table class="kartu-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th style="text-align:left">Nama Pemain</th>
+                            <th style="text-align:left">Tim</th>
+                            <th>🟨</th>
+                            <th>🟥</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            kartu.forEach(item => {
+                html += `
+                    <tr>
+                        <td>${item.no}</td>
+                        <td style="text-align:left;font-weight:600">${item.nama}</td>
+                        <td style="text-align:left">${item.tim}</td>
+                        <td><span class="badge-kuning">${item.kuning}</span></td>
+                        <td><span class="badge-merah">${item.merah}</span></td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // RENDER ALL
+        // ============================================================
+
+        function renderAll() {
+            renderKlasemen('klasemenU13', 'u13', pertandingan.u13);
+            renderTopSkor('topSkorU13', pertandingan.u13);
+            renderKartu('kartuU13', kartuData.u13);
+
+            renderKlasemen('klasemenU15', 'u15', pertandingan.u15);
+            renderTopSkor('topSkorU15', pertandingan.u15);
+            renderKartu('kartuU15', kartuData.u15);
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+
+        renderAll();
+
+        // ============================================================
+        // TAB SWITCH
+        // ============================================================
+
+        const tabs = document.querySelectorAll('#tabHeader button');
+        const panels = {
+            tabU13: document.getElementById('tabU13'),
+            tabU15: document.getElementById('tabU15')
+        };
+
+        tabs.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabs.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                Object.values(panels).forEach(p => p.classList.remove('active'));
+                const target = this.getAttribute('data-tab');
+                if (panels[target]) panels[target].classList.add('active');
+            });
+        });
+
+        console.log('🏆 Piala Soeratin 2026 - Kutai Barat');
+        console.log('📊 Data pertandingan sudah dimasukkan!');
+        console.log('📋 Klasemen dan Top Skor otomatis terhitung!');
+    </script>
+
+</body>
+</html>
