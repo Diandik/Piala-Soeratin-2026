@@ -321,50 +321,90 @@
             flex-shrink: 0;
         }
 
-        .match-goals {
+        /* ===== GOALS PER TIM ===== */
+        .match-goals-wrap {
+            display: grid;
+            grid-template-columns: 1fr 30px 1fr;
+            gap: 4px 6px;
             margin-top: 6px;
             padding-top: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2px 8px;
+            align-items: start;
         }
 
-        .match-goals .goal-item {
+        .match-goals-team {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .match-goals-team .team-label {
+            font-weight: 600;
+            font-size: 10px;
+            color: #9ca3af;
+            margin-bottom: 2px;
+        }
+
+        .match-goals-team.left {
+            align-items: flex-end;
+        }
+
+        .match-goals-team.left .team-label {
+            text-align: right;
+        }
+
+        .match-goals-team.right {
+            align-items: flex-start;
+        }
+
+        .match-goals-team.right .team-label {
+            text-align: left;
+        }
+
+        .match-goals-team .goal-item {
             font-size: 10px;
             color: #9ca3af;
             display: flex;
             align-items: center;
             gap: 2px;
+            white-space: nowrap;
         }
 
-        .match-goals .goal-item .goal-icon {
+        .match-goals-team .goal-item .goal-balls {
             color: #F9A825;
             font-size: 10px;
+            letter-spacing: 0px;
         }
 
-        .match-goals .goal-item .goal-name {
+        .match-goals-team .goal-item .goal-name {
             color: #e0e0e0;
             font-weight: 600;
             font-size: 10px;
         }
 
-        .match-goals .goal-item .goal-name.og {
+        .match-goals-team .goal-item .goal-name.og {
             color: #ef4444;
         }
 
-        .match-goals .goal-item .goal-number {
+        .match-goals-team .goal-item .goal-number {
             color: #6b7280;
             font-size: 9px;
         }
 
-        .match-goals .goal-item .goal-og {
+        .match-goals-team .goal-item .goal-og-label {
             color: #ef4444;
             font-size: 8px;
             font-weight: 700;
             background: rgba(239, 68, 68, 0.15);
             padding: 1px 4px;
             border-radius: 3px;
+        }
+
+        .match-goals-divider {
+            color: #4b5563;
+            font-size: 10px;
+            text-align: center;
+            padding-top: 16px;
         }
 
         .match-cards {
@@ -374,6 +414,7 @@
             gap: 2px 8px;
             font-size: 10px;
             color: #9ca3af;
+            grid-column: 1 / -1;
         }
 
         .match-cards .card-yellow {
@@ -545,6 +586,22 @@
 
             .grup-box .tim {
                 font-size: 13px;
+            }
+
+            .match-goals-team .goal-item {
+                font-size: 12px;
+            }
+
+            .match-goals-team .goal-item .goal-name {
+                font-size: 12px;
+            }
+
+            .match-goals-team .goal-item .goal-number {
+                font-size: 11px;
+            }
+
+            .match-goals-team .goal-item .goal-balls {
+                font-size: 12px;
             }
         }
 
@@ -903,6 +960,14 @@
                         <div class="pertandingan-list">
                             <div class="sub-title">📋 Hasil Pertandingan</div>
                             ${matches.map(m => {
+                                // Pisahkan gol berdasarkan tim
+                                const golTuan = (m.gol || []).filter(g => g.tim === m.tuan);
+                                const golTamu = (m.gol || []).filter(g => g.tim === m.tamu);
+
+                                // Cari own goal buat ditampilkan
+                                const golTamuOG = golTamu.filter(g => g.nama.includes('(OG)'));
+                                const golTamuNormal = golTamu.filter(g => !g.nama.includes('(OG)'));
+
                                 const kartuTim = kartuData[kategori] || [];
                                 const kartuTuan = kartuTim.filter(k => k.tim === m.tuan);
                                 const kartuTamu = kartuTim.filter(k => k.tim === m.tamu);
@@ -921,39 +986,69 @@
                                     kartuHtml += '</div>';
                                 }
 
+                                // Fungsi render gol per tim dengan icon bola
+                                function renderGolPerTim(golArray, isOG = false) {
+                                    if (!golArray || golArray.length === 0) return '<span style="color:#4b5563;font-size:9px;">-</span>';
+                                    const grouped = {};
+                                    golArray.forEach(g => {
+                                        const key = `${g.nama}|${g.no}`;
+                                        if (!grouped[key]) {
+                                            grouped[key] = { nama: g.nama, no: g.no, count: 0, isOG: g.nama.includes('(OG)') };
+                                        }
+                                        grouped[key].count += 1;
+                                    });
+                                    return Object.values(grouped).map(g => {
+                                        const isOG = g.nama.includes('(OG)');
+                                        const namaClean = g.nama.replace(' (OG)', '');
+                                        const balls = '⚽'.repeat(g.count);
+                                        return `
+                                            <span class="goal-item">
+                                                <span class="goal-balls">${balls}</span>
+                                                <span class="goal-name ${isOG ? 'og' : ''}">${namaClean}</span>
+                                                <span class="goal-number">#${g.no}</span>
+                                                ${isOG ? `<span class="goal-og-label">OG</span>` : ''}
+                                            </span>
+                                        `;
+                                    }).join('');
+                                }
+
+                                // Cari tahu OG asal dari tim mana
+                                let ogInfo = '';
+                                if (golTamuOG.length > 0) {
+                                    // OG ada di tim lawan, cari asal timnya dari nama tim pemain (di data kita asal timnya Jaya Prana)
+                                    // Tapi kita kasih label asal dari tuan rumah
+                                    ogInfo = `<span style="color:#ef4444;font-size:8px;opacity:0.7;">(OG - ${m.tuan})</span>`;
+                                }
+
                                 return `
                                     <div class="match-card">
                                         <div class="match-score-wrap">
-                                            <div class="match-team">
-                                                ${m.tuan}
-                                            </div>
-                                            <div class="match-score">
-                                                ${m.skorTuan} - ${m.skorTamu}
-                                            </div>
-                                            <div class="match-team">
-                                                ${m.tamu}
-                                            </div>
+                                            <div class="match-team">${m.tuan}</div>
+                                            <div class="match-score">${m.skorTuan} - ${m.skorTamu}</div>
+                                            <div class="match-team">${m.tamu}</div>
                                         </div>
-                                        ${m.gol && m.gol.length > 0 ? `
-                                        <div class="match-goals">
-                                            ${m.gol.map(g => {
-                                                const isOG = g.nama.includes('(OG)');
-                                                return `
+
+                                        <div class="match-goals-wrap">
+                                            <div class="match-goals-team left">
+                                                <div class="team-label">${m.tuan}</div>
+                                                ${renderGolPerTim(golTuan)}
+                                            </div>
+                                            <div class="match-goals-divider">⚡</div>
+                                            <div class="match-goals-team right">
+                                                <div class="team-label">${m.tamu}</div>
+                                                ${renderGolPerTim(golTamuNormal)}
+                                                ${golTamuOG.map(g => `
                                                     <span class="goal-item">
-                                                        <span class="goal-icon">⚽</span>
-                                                        <span class="goal-name ${isOG ? 'og' : ''}">${g.nama}</span>
+                                                        <span class="goal-balls">⚽</span>
+                                                        <span class="goal-name og">${g.nama.replace(' (OG)', '')}</span>
                                                         <span class="goal-number">#${g.no}</span>
-                                                        ${isOG ? `<span class="goal-og">OG</span>` : ''}
+                                                        <span class="goal-og-label">OG - ${m.tuan}</span>
                                                     </span>
-                                                `;
-                                            }).join('')}
+                                                `).join('')}
+                                                ${golTamuOG.length === 0 && golTamuNormal.length === 0 ? '<span style="color:#4b5563;font-size:9px;">-</span>' : ''}
+                                            </div>
+                                            ${kartuHtml}
                                         </div>
-                                        ` : `
-                                        <div class="match-goals">
-                                            <span class="goal-item" style="color:#4b5563;">Tidak ada gol</span>
-                                        </div>
-                                        `}
-                                        ${kartuHtml}
                                     </div>
                                 `;
                             }).join('')}
@@ -981,13 +1076,14 @@
             topSkor.forEach((item, idx) => {
                 const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
                 const isOG = item.nama.includes('(OG)');
+                const namaClean = item.nama.replace(' (OG)', '');
                 html += `
                     <div class="top-skor-item">
                         <span>
                             <span style="color:#6b7280;margin-right:6px;">${medal}</span>
-                            <span class="nama" style="${isOG ? 'color:#ef4444;' : ''}">${item.nama}</span>
+                            <span class="nama" style="${isOG ? 'color:#ef4444;' : ''}">${namaClean}</span>
                             <span class="tim">(#${item.no}) - ${item.tim}</span>
-                            ${isOG ? `<span class="goal-og" style="color:#ef4444;font-size:9px;font-weight:700;background:rgba(239,68,68,0.15);padding:1px 5px;border-radius:3px;">OG</span>` : ''}
+                            ${isOG ? `<span style="color:#ef4444;font-size:9px;font-weight:700;background:rgba(239,68,68,0.15);padding:1px 5px;border-radius:3px;">OG</span>` : ''}
                         </span>
                         <span class="gol">${item.gol} Gol</span>
                     </div>
@@ -1055,114 +1151,10 @@
         }
 
         // ============================================================
-        // RESPONSIVE JAVASCRIPT - DETEKSI HP DAN SESUAIKAN
-        // ============================================================
-
-        function applyResponsive() {
-            const width = window.innerWidth;
-            const isMobile = width <= 600;
-            const isTiny = width <= 400;
-
-            // Ambil semua elemen yang perlu diresize
-            const matchTeams = document.querySelectorAll('.match-team');
-            const matchScores = document.querySelectorAll('.match-score');
-            const matchCards = document.querySelectorAll('.match-card');
-            const goalItems = document.querySelectorAll('.goal-item');
-            const kartuTables = document.querySelectorAll('.kartu-table');
-            const grupTables = document.querySelectorAll('.grup-box table');
-            const topSkorItems = document.querySelectorAll('.top-skor-item');
-
-            if (isMobile) {
-                // Match team
-                matchTeams.forEach(el => {
-                    el.style.fontSize = isTiny ? '10px' : '11px';
-                    el.style.minWidth = isTiny ? '30px' : '40px';
-                    el.style.maxWidth = isTiny ? '55px' : '70px';
-                });
-
-                // Match score
-                matchScores.forEach(el => {
-                    el.style.fontSize = isTiny ? '14px' : '16px';
-                    el.style.minWidth = isTiny ? '30px' : '38px';
-                    el.style.padding = isTiny ? '1px 6px' : '2px 8px';
-                });
-
-                // Match card padding
-                matchCards.forEach(el => {
-                    el.style.padding = isTiny ? '6px 8px' : '8px 10px';
-                });
-
-                // Goal items
-                goalItems.forEach(el => {
-                    el.style.fontSize = isTiny ? '9px' : '10px';
-                });
-
-                // Kartu table
-                kartuTables.forEach(el => {
-                    el.style.fontSize = isTiny ? '9px' : '10px';
-                    el.style.minWidth = isTiny ? '220px' : '260px';
-                });
-
-                // Grup table
-                grupTables.forEach(el => {
-                    el.style.fontSize = isTiny ? '9px' : '10px';
-                    el.style.minWidth = isTiny ? '280px' : '340px';
-                });
-
-                // Top skor items
-                topSkorItems.forEach(el => {
-                    el.style.fontSize = isTiny ? '10px' : '11px';
-                    el.style.padding = isTiny ? '4px 8px' : '5px 10px';
-                });
-
-            } else {
-                // Reset ke default desktop
-                matchTeams.forEach(el => {
-                    el.style.fontSize = '';
-                    el.style.minWidth = '';
-                    el.style.maxWidth = '';
-                });
-                matchScores.forEach(el => {
-                    el.style.fontSize = '';
-                    el.style.minWidth = '';
-                    el.style.padding = '';
-                });
-                matchCards.forEach(el => {
-                    el.style.padding = '';
-                });
-                goalItems.forEach(el => {
-                    el.style.fontSize = '';
-                });
-                kartuTables.forEach(el => {
-                    el.style.fontSize = '';
-                    el.style.minWidth = '';
-                });
-                grupTables.forEach(el => {
-                    el.style.fontSize = '';
-                    el.style.minWidth = '';
-                });
-                topSkorItems.forEach(el => {
-                    el.style.fontSize = '';
-                    el.style.padding = '';
-                });
-            }
-        }
-
-        // ============================================================
         // INIT
         // ============================================================
 
         renderAll();
-
-        // Jalankan responsive setelah render
-        setTimeout(applyResponsive, 100);
-
-        // Jalankan ulang saat resize
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(applyResponsive, 200);
-        });
 
         // ============================================================
         // TAB SWITCH
@@ -1180,20 +1172,17 @@
                 this.classList.add('active');
                 Object.values(panels).forEach(p => p.classList.remove('active'));
                 const target = this.getAttribute('data-tab');
-                if (panels[target]) {
-                    panels[target].classList.add('active');
-                    // Re-apply responsive setelah tab berubah
-                    setTimeout(applyResponsive, 50);
-                }
+                if (panels[target]) panels[target].classList.add('active');
             });
         });
 
         console.log('🏆 Piala Soeratin 2026 - Kutai Barat');
         console.log('📊 Data pertandingan sudah dimasukkan!');
         console.log('📋 Klasemen dan Top Skor otomatis terhitung!');
-        console.log('📱 Responsive by JavaScript aktif!');
-        console.log('✅ Update U-15: Grup C + D sudah masuk!');
-        console.log('⚽ Deni (OG) sudah di bawah Jaya Prana (tim lawan)!');
+        console.log('⚽ Gol diurutkan per tim dengan icon bola!');
+        console.log('🟨🟥 Kartu sudah terpasang!');
+        console.log('📱 Responsive Mobile siap!');
+        console.log('✅ OG di bawah Jaya Prana dengan label (OG - Gelora)');
     </script>
 
 </body>
