@@ -10,68 +10,107 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #f0f2f5;
-            color: #1a1a1a;
+            background: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
         }
+
+        /* ===== HEADER ===== */
         .header {
-            background: linear-gradient(135deg, #1B5E20, #2E7D32);
-            color: white;
-            padding: 20px 16px 12px;
+            background: linear-gradient(145deg, #0d1a0d, #1a3a1a);
+            padding: 20px 16px 14px;
             text-align: center;
+            border-bottom: 3px solid #F9A825;
             position: relative;
+            overflow: hidden;
         }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(249, 168, 37, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+
         .header .logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
-        .header .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.15);
+
+        .header .logo-pssi {
+            width: 75px;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: #F9A825;
-            border: 2px solid #F9A825;
+            border: 2px solid rgba(249, 168, 37, 0.3);
+            padding: 6px;
+            flex-shrink: 0;
+            overflow: hidden;
         }
+
+        .header .logo-pssi img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
         .header h1 {
             font-size: 24px;
             font-weight: 800;
             letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(249, 168, 37, 0.15);
         }
+
         .header h1 span {
             color: #F9A825;
         }
+
         .header .sub {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.8;
             margin-top: 2px;
+            color: #b0b0b0;
         }
+
         .slogan {
-            background: #F9A825;
-            color: #1B5E20;
-            font-weight: bold;
-            padding: 6px 0;
+            background: linear-gradient(90deg, #F9A825, #f57f17);
+            color: #0a0e17;
+            font-weight: 800;
+            padding: 7px 0;
             text-align: center;
             font-size: 14px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
+
+        /* ===== TABS ===== */
         .tabs {
             display: flex;
-            background: #fff;
-            border-bottom: 3px solid #e0e0e0;
+            background: #111827;
+            border-bottom: 2px solid #1f2937;
             position: sticky;
             top: 0;
             z-index: 10;
+            backdrop-filter: blur(10px);
         }
+
         .tabs button {
             flex: 1;
             padding: 14px 0;
@@ -79,231 +118,446 @@
             background: transparent;
             font-size: 16px;
             font-weight: 700;
-            color: #777;
+            color: #6b7280;
             cursor: pointer;
             transition: 0.3s;
-            border-bottom: 4px solid transparent;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px;
         }
+
+        .tabs button:hover {
+            color: #e0e0e0;
+        }
+
         .tabs button.active {
-            color: #1B5E20;
-            border-bottom-color: #1B5E20;
+            color: #F9A825;
+            border-bottom-color: #F9A825;
         }
+
         .tabs button:last-child.active {
-            border-bottom-color: #0D47A1;
+            border-bottom-color: #F9A825;
         }
+
+        /* ===== CONTENT ===== */
         .content {
             max-width: 1100px;
             margin: 16px auto;
             padding: 0 12px 80px;
         }
+
         .tab-panel {
             display: none;
         }
+
         .tab-panel.active {
             display: block;
+            animation: fadeIn 0.3s ease;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CARD ===== */
         .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            padding: 16px;
+            background: linear-gradient(145deg, #141b2b, #1a2335);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            padding: 18px 16px;
             margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
+
         .card h2 {
             font-size: 18px;
-            margin-bottom: 12px;
-            color: #1B5E20;
+            margin-bottom: 14px;
+            color: #F9A825;
             border-left: 4px solid #F9A825;
-            padding-left: 10px;
+            padding-left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
+
         .card h2 .badge {
-            font-size: 14px;
-            background: #e0e0e0;
-            color: #333;
-            padding: 2px 10px;
+            font-size: 12px;
+            background: rgba(249, 168, 37, 0.15);
+            color: #F9A825;
+            padding: 2px 12px;
             border-radius: 20px;
-            margin-left: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(249, 168, 37, 0.2);
         }
+
+        /* ===== GRUP ===== */
         .grup-wrap {
             display: grid;
             grid-template-columns: 1fr;
             gap: 16px;
         }
+
         .grup-box {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 12px;
-            border-top: 4px solid #1B5E20;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 14px;
+            border-top: 3px solid #F9A825;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top-width: 3px;
         }
+
         .grup-box .grup-title {
             font-weight: 700;
             font-size: 16px;
-            margin-bottom: 8px;
-            color: #1B5E20;
+            margin-bottom: 10px;
+            color: #F9A825;
+            letter-spacing: 1px;
         }
+
         .grup-box table {
             width: 100%;
             font-size: 13px;
             border-collapse: collapse;
-            margin-bottom: 8px;
         }
+
         .grup-box table th {
-            background: #e9ecef;
-            padding: 4px 2px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 4px;
             font-size: 11px;
             text-align: center;
+            color: #9ca3af;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
         .grup-box table td {
-            padding: 4px 2px;
-            border-bottom: 1px solid #e9ecef;
+            padding: 6px 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             text-align: center;
+            font-size: 13px;
         }
+
         .grup-box table tr:last-child td {
             border-bottom: none;
         }
+
+        .grup-box table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
         .grup-box .rank {
             font-weight: 700;
-            color: #555;
+            color: #9ca3af;
             width: 22px;
         }
+
         .grup-box .tim {
             font-weight: 600;
             text-align: left;
+            color: #e0e0e0;
         }
+
         .grup-box .poin {
             font-weight: 700;
-            color: #1B5E20;
+            color: #F9A825;
         }
+
+        /* ===== MATCH CARD ===== */
+        .match-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: 0.3s;
+        }
+
+        .match-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .match-score-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .match-team {
+            font-weight: 700;
+            font-size: 15px;
+            color: #e0e0e0;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .match-score {
+            font-size: 28px;
+            font-weight: 900;
+            color: #F9A825;
+            background: rgba(249, 168, 37, 0.08);
+            padding: 4px 16px;
+            border-radius: 8px;
+            min-width: 60px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .match-goals {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .match-goals .goal-item {
+            font-size: 12px;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .match-goals .goal-item .goal-icon {
+            color: #F9A825;
+            font-size: 14px;
+        }
+
+        .match-goals .goal-item .goal-name {
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        .match-goals .goal-item .goal-number {
+            color: #6b7280;
+            font-size: 11px;
+        }
+
+        .match-cards {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .match-cards .card-yellow {
+            color: #F9A825;
+        }
+
+        .match-cards .card-red {
+            color: #ef4444;
+        }
+
         .pertandingan-list {
             margin-top: 8px;
-            padding-top: 8px;
-            border-top: 2px dashed #dee2e6;
         }
+
         .pertandingan-list .sub-title {
             font-weight: 600;
             font-size: 13px;
-            color: #555;
-            margin-bottom: 6px;
+            color: #9ca3af;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
-        .pertandingan-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 8px;
-            font-size: 13px;
-            background: white;
-            border-radius: 4px;
-            margin-bottom: 2px;
-            border-left: 3px solid #F9A825;
-        }
-        .pertandingan-item .skor {
-            font-weight: 700;
-            color: #1B5E20;
-        }
-        .pertandingan-item .gol {
-            font-size: 11px;
-            color: #666;
-        }
-        .top-skor-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .top-skor-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 12px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            font-size: 14px;
-            border-left: 4px solid #F9A825;
-        }
-        .top-skor-item .nama {
-            font-weight: 600;
-        }
-        .top-skor-item .gol {
-            background: #1B5E20;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .kartu-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 12px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 14px;
-        }
-        .kartu-item .kuning {
-            color: #f9a825;
-        }
-        .kartu-item .merah {
-            color: #d32f2f;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px 12px;
-            font-size: 13px;
-            color: #777;
-            border-top: 1px solid #e0e0e0;
-            margin-top: 20px;
-        }
-        .footer strong {
-            color: #1B5E20;
-        }
+
         .kosong {
             text-align: center;
-            color: #999;
+            color: #4b5563;
             padding: 20px 0;
             font-size: 14px;
         }
+
+        /* ===== TOP SKOR ===== */
+        .top-skor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .top-skor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-size: 14px;
+            border-left: 3px solid #F9A825;
+            transition: 0.3s;
+        }
+
+        .top-skor-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .top-skor-item .nama {
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+
+        .top-skor-item .tim {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .top-skor-item .gol {
+            background: linear-gradient(135deg, #F9A825, #f57f17);
+            color: #0a0e17;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* ===== KARTU TABLE ===== */
         .kartu-table {
             width: 100%;
             font-size: 13px;
             border-collapse: collapse;
         }
+
         .kartu-table th {
-            background: #e9ecef;
-            padding: 6px 4px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 6px;
             text-align: center;
             font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
         .kartu-table td {
-            padding: 5px 4px;
-            border-bottom: 1px solid #e9ecef;
+            padding: 6px 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             text-align: center;
+            font-size: 13px;
         }
+
+        .kartu-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .kartu-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
         .badge-kuning {
-            background: #f9a825;
-            color: #333;
-            padding: 2px 8px;
+            background: rgba(249, 168, 37, 0.15);
+            color: #F9A825;
+            padding: 2px 12px;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 13px;
+            border: 1px solid rgba(249, 168, 37, 0.2);
         }
+
         .badge-merah {
-            background: #d32f2f;
-            color: white;
-            padding: 2px 8px;
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            padding: 2px 12px;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 13px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 24px 12px;
+            font-size: 13px;
+            color: #4b5563;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 20px;
+        }
+
+        .footer strong {
+            color: #F9A825;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (min-width: 768px) {
             .grup-wrap {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .match-team {
+                font-size: 17px;
+                min-width: 120px;
+            }
+
+            .match-score {
+                font-size: 32px;
+                min-width: 80px;
+            }
         }
+
         @media (min-width: 1024px) {
             .grup-wrap {
                 grid-template-columns: 1fr 1fr 1fr;
             }
         }
-        .sub-info {
-            font-size: 12px;
-            color: #888;
-            font-weight: normal;
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .header .logo-pssi {
+                width: 55px;
+                height: 55px;
+            }
+
+            .match-team {
+                font-size: 13px;
+                min-width: 60px;
+            }
+
+            .match-score {
+                font-size: 22px;
+                min-width: 50px;
+                padding: 2px 10px;
+            }
+
+            .match-score-wrap {
+                gap: 6px;
+            }
+
+            .match-goals .goal-item {
+                font-size: 11px;
+            }
+
+            .tabs button {
+                font-size: 14px;
+                padding: 12px 0;
+            }
+
+            .grup-box table {
+                font-size: 11px;
+            }
+
+            .grup-box table th {
+                font-size: 9px;
+                padding: 4px 2px;
+            }
+
+            .grup-box table td {
+                padding: 4px 2px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -312,7 +566,9 @@
     <!-- ===== HEADER ===== -->
     <div class="header">
         <div class="logo">
-            <div class="logo-placeholder">⚽</div>
+            <div class="logo-pssi">
+                <img src="https://i.ibb.co.com/F4DM1Fq3/file-00000000decc7206a2759c0a010a5e40.png" alt="PSSI Kutai Barat" />
+            </div>
             <div>
                 <h1>PIALA <span>SOERATIN</span> 2026</h1>
                 <div class="sub">Kabupaten Kutai Barat</div>
@@ -393,62 +649,75 @@
             u13: {
                 A: [
                     { tuan: 'Jaya Prana', tamu: 'Persimuja', skorTuan: 0, skorTamu: 0, gol: [] },
-                    { tuan: 'Persimen X Diandra', tamu: 'Geiska Sport', skorTuan: 2, skorTamu: 1, 
-                      gol: [
-                          { nama: 'Bernades T R', no: 16, tim: 'Persimen X Diandra' },
-                          { nama: 'Octavianus A R', no: 4, tim: 'Persimen X Diandra' },
-                          { nama: 'Cedric G S', no: 18, tim: 'Geiska Sport' }
-                      ] 
+                    { tuan: 'Persimen X Diandra', tamu: 'Geiska Sport', skorTuan: 2, skorTamu: 1,
+                        gol: [
+                            { nama: 'Bernades T R', no: 16, tim: 'Persimen X Diandra' },
+                            { nama: 'Octavianus A R', no: 4, tim: 'Persimen X Diandra' },
+                            { nama: 'Cedric G S', no: 18, tim: 'Geiska Sport' }
+                        ]
                     }
                 ],
-                B: [],
+                B: [
+                    { tuan: 'Akademi Nyuatan Bersatu', tamu: 'PS Bigung', skorTuan: 0, skorTamu: 2,
+                        gol: [
+                            { nama: 'Dafin', no: 12, tim: 'PS Bigung' },
+                            { nama: 'Dirli', no: 23, tim: 'PS Bigung' }
+                        ]
+                    },
+                    { tuan: 'Petras', tamu: 'Gelora Putra Sendawar', skorTuan: 0, skorTamu: 2,
+                        gol: [
+                            { nama: 'Darva', no: 17, tim: 'Gelora Putra Sendawar' },
+                            { nama: 'Adriel', no: 11, tim: 'Gelora Putra Sendawar' }
+                        ]
+                    }
+                ],
                 C: [
                     { tuan: 'Azellen Soccer', tamu: 'Kubar Soccer School', skorTuan: 9, skorTamu: 0,
-                      gol: [
-                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
-                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
-                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
-                          { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
-                          { nama: 'Mahardika', no: 78, tim: 'Azellen Soccer' },
-                          { nama: 'Mahardika', no: 78, tim: 'Azellen Soccer' },
-                          { nama: 'Hardianto', no: 77, tim: 'Azellen Soccer' },
-                          { nama: 'N Kinan F', no: 56, tim: 'Azellen Soccer' },
-                          { nama: 'Risky Simin', no: 28, tim: 'Azellen Soccer' }
-                      ]
+                        gol: [
+                            { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                            { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                            { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                            { nama: 'Fernandes', no: 72, tim: 'Azellen Soccer' },
+                            { nama: 'Mahardika', no: 78, tim: 'Azellen Soccer' },
+                            { nama: 'Mahardika', no: 78, tim: 'Azellen Soccer' },
+                            { nama: 'Hardianto', no: 77, tim: 'Azellen Soccer' },
+                            { nama: 'N Kinan F', no: 56, tim: 'Azellen Soccer' },
+                            { nama: 'Risky Simin', no: 28, tim: 'Azellen Soccer' }
+                        ]
                     }
                 ]
             },
             u15: {
                 A: [
                     { tuan: 'Geiska Sport', tamu: 'Neofeliz FA', skorTuan: 0, skorTamu: 6,
-                      gol: [
-                          { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
-                          { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
-                          { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
-                          { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
-                          { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
-                          { nama: 'Dehis R K', no: 10, tim: 'Neofeliz FA' }
-                      ]
+                        gol: [
+                            { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
+                            { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
+                            { nama: 'Anthony S', no: 18, tim: 'Neofeliz FA' },
+                            { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
+                            { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
+                            { nama: 'Dehis R K', no: 10, tim: 'Neofeliz FA' }
+                        ]
                     },
                     { tuan: 'Menarung', tamu: 'PS Bigung', skorTuan: 4, skorTamu: 0,
-                      gol: [
-                          { nama: 'Stefano', no: 14, tim: 'Menarung' },
-                          { nama: 'Stefano', no: 14, tim: 'Menarung' },
-                          { nama: 'Neymar', no: 8, tim: 'Menarung' },
-                          { nama: 'Fajar C S', no: 9, tim: 'Menarung' }
-                      ]
+                        gol: [
+                            { nama: 'Stefano', no: 14, tim: 'Menarung' },
+                            { nama: 'Stefano', no: 14, tim: 'Menarung' },
+                            { nama: 'Neymar', no: 8, tim: 'Menarung' },
+                            { nama: 'Fajar C S', no: 9, tim: 'Menarung' }
+                        ]
                     }
                 ],
                 B: [
                     { tuan: 'PSG Muara Gusiq', tamu: 'Persimen X Diandra', skorTuan: 6, skorTamu: 0,
-                      gol: [
-                          { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
-                          { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
-                          { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
-                          { nama: 'Bilfaqih R G', no: 14, tim: 'PSG Muara Gusiq' },
-                          { nama: 'Bilfaqih R G', no: 14, tim: 'PSG Muara Gusiq' },
-                          { nama: 'Rifki Aditia', no: 3, tim: 'PSG Muara Gusiq' }
-                      ]
+                        gol: [
+                            { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
+                            { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
+                            { nama: 'M Ilham S', no: 10, tim: 'PSG Muara Gusiq' },
+                            { nama: 'Bilfaqih R G', no: 14, tim: 'PSG Muara Gusiq' },
+                            { nama: 'Bilfaqih R G', no: 14, tim: 'PSG Muara Gusiq' },
+                            { nama: 'Rifki Aditia', no: 3, tim: 'PSG Muara Gusiq' }
+                        ]
                     }
                 ],
                 C: [],
@@ -462,7 +731,8 @@
 
         const kartuData = {
             u13: [
-                { no: 0, nama: 'Lexsi', tim: 'Jaya Prana', kuning: 1, merah: 0 }
+                { no: 0, nama: 'Lexsi', tim: 'Jaya Prana', kuning: 1, merah: 0 },
+                { no: 12, nama: 'Frafael J M', tim: 'Akademi Nyuatan Bersatu', kuning: 1, merah: 0 }
             ],
             u15: [
                 { no: 1, nama: 'Rifana', tim: 'PSG Muara Gusiq', kuning: 1, merah: 0 },
@@ -496,12 +766,10 @@
         function hitungKlasemenPerGrup(timGrup, matches) {
             const klasemen = {};
 
-            // Inisialisasi semua tim di grup ini
             for (const tim of timGrup) {
                 klasemen[tim] = { tim, m: 0, w: 0, d: 0, l: 0, gm: 0, gk: 0, p: 0 };
             }
 
-            // Proses pertandingan
             for (const match of matches) {
                 const tuan = match.tuan;
                 const tamu = match.tamu;
@@ -533,7 +801,6 @@
                 }
             }
 
-            // Konversi ke array dan sorting
             const result = Object.values(klasemen);
             result.sort((a, b) => {
                 if (b.p !== a.p) return b.p - a.p;
@@ -625,19 +892,57 @@
                         ${matches.length > 0 ? `
                         <div class="pertandingan-list">
                             <div class="sub-title">📋 Hasil Pertandingan</div>
-                            ${matches.map(m => `
-                                <div class="pertandingan-item">
-                                    <span>
-                                        <strong>${m.tuan}</strong> vs <strong>${m.tamu}</strong>
+                            ${matches.map(m => {
+                                const kartuTim = kartuData[kategori] || [];
+                                const kartuTuan = kartuTim.filter(k => k.tim === m.tuan);
+                                const kartuTamu = kartuTim.filter(k => k.tim === m.tamu);
+
+                                let kartuHtml = '';
+                                if (kartuTuan.length > 0 || kartuTamu.length > 0) {
+                                    kartuHtml = '<div class="match-cards">';
+                                    kartuTuan.forEach(k => {
+                                        if (k.kuning > 0) kartuHtml += `<span class="card-yellow">🟨 ${k.nama} (#${k.no})</span>`;
+                                        if (k.merah > 0) kartuHtml += `<span class="card-red">🟥 ${k.nama} (#${k.no})</span>`;
+                                    });
+                                    kartuTamu.forEach(k => {
+                                        if (k.kuning > 0) kartuHtml += `<span class="card-yellow">🟨 ${k.nama} (#${k.no})</span>`;
+                                        if (k.merah > 0) kartuHtml += `<span class="card-red">🟥 ${k.nama} (#${k.no})</span>`;
+                                    });
+                                    kartuHtml += '</div>';
+                                }
+
+                                return `
+                                    <div class="match-card">
+                                        <div class="match-score-wrap">
+                                            <div class="match-team">
+                                                ${m.tuan}
+                                            </div>
+                                            <div class="match-score">
+                                                ${m.skorTuan} - ${m.skorTamu}
+                                            </div>
+                                            <div class="match-team">
+                                                ${m.tamu}
+                                            </div>
+                                        </div>
                                         ${m.gol && m.gol.length > 0 ? `
-                                            <span class="gol">
-                                                (${m.gol.map(g => `${g.nama} #${g.no}`).join(', ')})
-                                            </span>
-                                        ` : ''}
-                                    </span>
-                                    <span class="skor">${m.skorTuan} - ${m.skorTamu}</span>
-                                </div>
-                            `).join('')}
+                                        <div class="match-goals">
+                                            ${m.gol.map(g => `
+                                                <span class="goal-item">
+                                                    <span class="goal-icon">⚽</span>
+                                                    <span class="goal-name">${g.nama}</span>
+                                                    <span class="goal-number">#${g.no}</span>
+                                                </span>
+                                            `).join('')}
+                                        </div>
+                                        ` : `
+                                        <div class="match-goals">
+                                            <span class="goal-item" style="color:#4b5563;">Tidak ada gol</span>
+                                        </div>
+                                        `}
+                                        ${kartuHtml}
+                                    </div>
+                                `;
+                            }).join('')}
                         </div>
                         ` : `<div class="kosong" style="padding:8px 0;font-size:12px;">Belum ada pertandingan</div>`}
                     </div>
@@ -659,10 +964,15 @@
             }
 
             let html = '';
-            topSkor.forEach(item => {
+            topSkor.forEach((item, idx) => {
+                const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
                 html += `
                     <div class="top-skor-item">
-                        <span class="nama">${item.nama} (#${item.no}) - ${item.tim}</span>
+                        <span>
+                            <span style="color:#6b7280;margin-right:8px;">${medal}</span>
+                            <span class="nama">${item.nama}</span>
+                            <span class="tim">(#${item.no}) - ${item.tim}</span>
+                        </span>
                         <span class="gol">${item.gol} Gol</span>
                     </div>
                 `;
@@ -698,8 +1008,8 @@
                 html += `
                     <tr>
                         <td>${item.no}</td>
-                        <td style="text-align:left;font-weight:600">${item.nama}</td>
-                        <td style="text-align:left">${item.tim}</td>
+                        <td style="text-align:left;font-weight:600;color:#e0e0e0;">${item.nama}</td>
+                        <td style="text-align:left;color:#9ca3af;">${item.tim}</td>
                         <td><span class="badge-kuning">${item.kuning}</span></td>
                         <td><span class="badge-merah">${item.merah}</span></td>
                     </tr>
@@ -757,6 +1067,8 @@
         console.log('🏆 Piala Soeratin 2026 - Kutai Barat');
         console.log('📊 Data pertandingan sudah dimasukkan!');
         console.log('📋 Klasemen dan Top Skor otomatis terhitung!');
+        console.log('🎨 Tema gelap + Match Card style!');
+        console.log('🖼️ Logo PSSI Kutai Barat sudah terpasang!');
     </script>
 
 </body>
