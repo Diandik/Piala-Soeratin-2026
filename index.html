@@ -219,7 +219,7 @@
             width: 100%;
             font-size: 12px;
             border-collapse: collapse;
-            min-width: 380px;
+            min-width: 420px;
         }
 
         .grup-box table th {
@@ -268,6 +268,12 @@
             font-weight: 700;
             color: #F9A825;
             font-size: 12px;
+        }
+
+        .grup-box .sg {
+            font-weight: 600;
+            color: #e0e0e0;
+            font-size: 11px;
         }
 
         /* ===== MATCH CARD ===== */
@@ -670,7 +676,7 @@
 
     <script>
         // ============================================================
-        // DATA PERTANDINGAN
+        // DATA PERTANDINGAN (LENGKAP)
         // ============================================================
 
         const pertandingan = {
@@ -682,6 +688,12 @@
                             { nama: 'Bernades T R', no: 16, tim: 'Persimen X Diandra' },
                             { nama: 'Octavianus A R', no: 4, tim: 'Persimen X Diandra' },
                             { nama: 'Cedric G S', no: 18, tim: 'Geiska Sport' }
+                        ]
+                    },
+                    { tuan: 'Persimuja', tamu: 'Geiska Sport', skorTuan: 2, skorTamu: 0,
+                        gol: [
+                            { nama: 'Rafael T', no: 5, tim: 'Persimuja' },
+                            { nama: 'Mizhael C M', no: 10, tim: 'Persimuja' }
                         ]
                     }
                 ],
@@ -711,6 +723,15 @@
                             { nama: 'Hardianto', no: 77, tim: 'Azellen Soccer' },
                             { nama: 'N Kinan F', no: 56, tim: 'Azellen Soccer' },
                             { nama: 'Risky Simin', no: 28, tim: 'Azellen Soccer' }
+                        ]
+                    },
+                    { tuan: 'Menarung', tamu: 'Azellen Soccer', skorTuan: 4, skorTamu: 1,
+                        gol: [
+                            { nama: 'Irenius Jeasen', no: 9, tim: 'Menarung' },
+                            { nama: 'Irenius Jeasen', no: 9, tim: 'Menarung' },
+                            { nama: 'Kanzey Alvaro', no: 7, tim: 'Menarung' },
+                            { nama: 'Alvino', no: 11, tim: 'Menarung' },
+                            { nama: 'Hardianto', no: 77, tim: 'Azellen Soccer' }
                         ]
                     }
                 ]
@@ -811,7 +832,7 @@
             const klasemen = {};
 
             for (const tim of timGrup) {
-                klasemen[tim] = { tim, m: 0, w: 0, d: 0, l: 0, gm: 0, gk: 0, p: 0 };
+                klasemen[tim] = { tim, m: 0, w: 0, d: 0, l: 0, gm: 0, gk: 0, sg: 0, p: 0 };
             }
 
             for (const match of matches) {
@@ -846,11 +867,13 @@
             }
 
             const result = Object.values(klasemen);
+            result.forEach(row => {
+                row.sg = row.gm - row.gk;
+            });
+
             result.sort((a, b) => {
                 if (b.p !== a.p) return b.p - a.p;
-                const selisihA = a.gm - a.gk;
-                const selisihB = b.gm - b.gk;
-                if (selisihB !== selisihA) return selisihB - selisihA;
+                if (b.sg !== a.sg) return b.sg - a.sg;
                 return b.gm - a.gm;
             });
 
@@ -913,6 +936,7 @@
                                     <th>L</th>
                                     <th>GM</th>
                                     <th>GK</th>
+                                    <th>SG</th>
                                     <th>P</th>
                                 </tr>
                             </thead>
@@ -927,6 +951,7 @@
                                         <td>${row.l}</td>
                                         <td>${row.gm}</td>
                                         <td>${row.gk}</td>
+                                        <td class="sg">${row.sg > 0 ? '+' : ''}${row.sg}</td>
                                         <td class="poin">${row.p}</td>
                                     </tr>
                                 `).join('')}
