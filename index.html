@@ -18,7 +18,6 @@
             min-height: 100vh;
         }
 
-        /* ===== HEADER ===== */
         .header {
             background: linear-gradient(145deg, #0d1a0d, #1a3a1a);
             padding: 16px 12px 12px;
@@ -96,7 +95,6 @@
             text-transform: uppercase;
         }
 
-        /* ===== TABS ===== */
         .tabs {
             display: flex;
             background: #111827;
@@ -130,7 +128,6 @@
             border-bottom-color: #F9A825;
         }
 
-        /* ===== CONTENT ===== */
         .content {
             max-width: 1100px;
             margin: 12px auto;
@@ -157,7 +154,6 @@
             }
         }
 
-        /* ===== CARD ===== */
         .card {
             background: linear-gradient(145deg, #141b2b, #1a2335);
             border-radius: 12px;
@@ -189,7 +185,6 @@
             border: 1px solid rgba(249, 168, 37, 0.2);
         }
 
-        /* ===== GRUP ===== */
         .grup-wrap {
             display: grid;
             grid-template-columns: 1fr;
@@ -276,7 +271,6 @@
             font-size: 11px;
         }
 
-        /* ===== MATCH CARD ===== */
         .match-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
@@ -323,7 +317,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== GOALS PER TIM ===== */
         .match-goals-wrap {
             display: grid;
             grid-template-columns: 1fr 30px 1fr;
@@ -390,22 +383,65 @@
             padding-top: 16px;
         }
 
-        .match-cards {
+        .match-cards-wrap {
+            display: grid;
+            grid-template-columns: 1fr 30px 1fr;
+            gap: 4px 6px;
             margin-top: 4px;
+            padding-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            align-items: start;
+        }
+
+        .match-cards-team {
             display: flex;
-            flex-wrap: wrap;
-            gap: 2px 8px;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .match-cards-team.left {
+            align-items: flex-end;
+        }
+
+        .match-cards-team.right {
+            align-items: flex-start;
+        }
+
+        .match-cards-team .card-item {
             font-size: 10px;
             color: #9ca3af;
-            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            white-space: nowrap;
         }
 
-        .match-cards .card-yellow {
-            color: #ffffff;
+        .match-cards-team .card-item .card-yellow {
+            color: #F9A825;
+            font-weight: 700;
         }
 
-        .match-cards .card-red {
+        .match-cards-team .card-item .card-red {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        .match-cards-team .card-item .card-number {
             color: #ffffff;
+            font-size: 9px;
+        }
+
+        .match-cards-team .card-item .card-name {
+            color: #e0e0e0;
+            font-weight: 600;
+            font-size: 10px;
+        }
+
+        .match-cards-divider {
+            color: #4b5563;
+            font-size: 10px;
+            text-align: center;
+            padding-top: 4px;
         }
 
         .pertandingan-list {
@@ -427,7 +463,6 @@
             font-size: 12px;
         }
 
-        /* ===== TOP SKOR ===== */
         .top-skor-list {
             display: flex;
             flex-direction: column;
@@ -472,7 +507,6 @@
             font-weight: 800;
         }
 
-        /* ===== KARTU TABLE ===== */
         .kartu-table {
             width: 100%;
             font-size: 11px;
@@ -527,7 +561,6 @@
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 16px 12px;
@@ -541,7 +574,6 @@
             color: #ffffff;
         }
 
-        /* ===== DESKTOP ===== */
         @media (min-width: 768px) {
             .grup-wrap {
                 grid-template-columns: 1fr 1fr;
@@ -585,6 +617,18 @@
 
             .match-goals-team .goal-item .goal-balls {
                 font-size: 12px;
+            }
+
+            .match-cards-team .card-item {
+                font-size: 12px;
+            }
+
+            .match-cards-team .card-item .card-name {
+                font-size: 12px;
+            }
+
+            .match-cards-team .card-item .card-number {
+                font-size: 11px;
             }
         }
 
@@ -756,7 +800,6 @@
                             { nama: 'Fajar C S', no: 9, tim: 'Menarung' }
                         ]
                     },
-                    // PERTANDINGAN BARU: Neofeliz FA vs PS Bigung
                     { tuan: 'Neofeliz FA', tamu: 'PS Bigung', skorTuan: 5, skorTamu: 0,
                         gol: [
                             { nama: 'George D R K', no: 7, tim: 'Neofeliz FA' },
@@ -778,7 +821,6 @@
                             { nama: 'Rifki Aditia', no: 3, tim: 'PSG Muara Gusiq' }
                         ]
                     },
-                    // PERTANDINGAN BARU: Delirium Muara Tae vs Persimen X Diandra
                     { tuan: 'Delirium Muara Tae', tamu: 'Persimen X Diandra', skorTuan: 2, skorTamu: 0,
                         gol: [
                             { nama: 'Faturrachman', no: 11, tim: 'Delirium Muara Tae' },
@@ -807,23 +849,31 @@
         };
 
         // ============================================================
-        // DATA KARTU
+        // DATA KARTU (DATA ASLI DENGAN PROPERTI PERTANDINGAN)
         // ============================================================
 
         const kartuData = {
             u13: [
-                { no: 0, nama: 'Lexsi', tim: 'Jaya Prana', kuning: 1, merah: 0 },
-                { no: 12, nama: 'Frafael J M', tim: 'Akademi Nyuatan Bersatu', kuning: 1, merah: 0 }
+                // Jaya Prana vs Persimuja - Kartu untuk Lexsi (Jaya Prana)
+                { no: 0, nama: 'Lexsi', tim: 'Jaya Prana', kuning: 1, merah: 0, pertandingan: 'Jaya Prana vs Persimuja' },
+                
+                // Akademi Nyuatan Bersatu vs PS Bigung - Kartu untuk Frafael JM (Akademi)
+                { no: 12, nama: 'Frafael J M', tim: 'Akademi Nyuatan Bersatu', kuning: 1, merah: 0, pertandingan: 'Akademi Nyuatan Bersatu vs PS Bigung' }
             ],
             u15: [
-                { no: 1, nama: 'Rifana', tim: 'PSG Muara Gusiq', kuning: 1, merah: 0 },
-                { no: 30, nama: 'Christeon H F', tim: 'Persimen X Diandra', kuning: 1, merah: 0 },
-                { no: 1, nama: 'Lesky C', tim: 'Persimen X Diandra', kuning: 0, merah: 1 },
-                { no: 11, nama: 'Gherand C', tim: 'Kerbangan SKD', kuning: 1, merah: 0 },
-                // KARTU BARU: Persimen X Diandra - Carel N T
-                { no: 4, nama: 'Carel N T', tim: 'Persimen X Diandra', kuning: 1, merah: 0 },
-                // KARTU BARU: Neofeliz FA - Ardi Harnoko
-                { no: 14, nama: 'Ardi Harnoko', tim: 'Neofeliz FA', kuning: 1, merah: 0 }
+                // PSG Muara Gusiq vs Persimen X Diandra
+                { no: 1, nama: 'Rifana', tim: 'PSG Muara Gusiq', kuning: 1, merah: 0, pertandingan: 'PSG Muara Gusiq vs Persimen X Diandra' },
+                { no: 30, nama: 'Christeon H F', tim: 'Persimen X Diandra', kuning: 1, merah: 0, pertandingan: 'PSG Muara Gusiq vs Persimen X Diandra' },
+                { no: 1, nama: 'Lesky C', tim: 'Persimen X Diandra', kuning: 0, merah: 1, pertandingan: 'PSG Muara Gusiq vs Persimen X Diandra' },
+                
+                // Persimuja vs Kerbangan SKD
+                { no: 11, nama: 'Gherand C', tim: 'Kerbangan SKD', kuning: 1, merah: 0, pertandingan: 'Persimuja vs Kerbangan SKD' },
+                
+                // Delirium Muara Tae vs Persimen X Diandra
+                { no: 4, nama: 'Carel N T', tim: 'Persimen X Diandra', kuning: 1, merah: 0, pertandingan: 'Delirium Muara Tae vs Persimen X Diandra' },
+                
+                // Neofeliz FA vs PS Bigung - Ardi Harnoko dapat kartu di pertandingan ini
+                { no: 14, nama: 'Ardi Harnoko', tim: 'Neofeliz FA', kuning: 1, merah: 0, pertandingan: 'Neofeliz FA vs PS Bigung' }
             ]
         };
 
@@ -902,7 +952,7 @@
         }
 
         // ============================================================
-        // FUNGSI HITUNG TOP SKOR
+        // FUNGSI HITUNG TOP SKOR (DIPERBAIKI - SKIP OG)
         // ============================================================
 
         function hitungTopSkor(pertandinganGrup) {
@@ -913,6 +963,9 @@
                 for (const match of matches) {
                     const gol = match.gol || [];
                     for (const g of gol) {
+                        // SKIP OWN GOAL - tidak masuk top skor
+                        if (g.nama.includes('(OG)')) continue;
+                        
                         const key = `${g.nama}|${g.no}|${g.tim}`;
                         if (!golMap[key]) {
                             golMap[key] = { nama: g.nama, no: g.no, tim: g.tim, gol: 0 };
@@ -983,28 +1036,16 @@
                         <div class="pertandingan-list">
                             <div class="sub-title">📋 Hasil Pertandingan</div>
                             ${matches.map(m => {
+                                const matchKey = `${m.tuan} vs ${m.tamu}`;
                                 const golTuan = (m.gol || []).filter(g => g.tim === m.tuan);
                                 const golTamu = (m.gol || []).filter(g => g.tim === m.tamu);
                                 const golTamuOG = golTamu.filter(g => g.nama.includes('(OG)'));
                                 const golTamuNormal = golTamu.filter(g => !g.nama.includes('(OG)'));
 
+                                // Kartu berdasarkan pertandingan
                                 const kartuTim = kartuData[kategori] || [];
-                                const kartuTuan = kartuTim.filter(k => k.tim === m.tuan);
-                                const kartuTamu = kartuTim.filter(k => k.tim === m.tamu);
-
-                                let kartuHtml = '';
-                                if (kartuTuan.length > 0 || kartuTamu.length > 0) {
-                                    kartuHtml = '<div class="match-cards">';
-                                    kartuTuan.forEach(k => {
-                                        if (k.kuning > 0) kartuHtml += `<span class="card-yellow">🟨 ${k.no}. ${k.nama}</span>`;
-                                        if (k.merah > 0) kartuHtml += `<span class="card-red">🟥 ${k.no}. ${k.nama}</span>`;
-                                    });
-                                    kartuTamu.forEach(k => {
-                                        if (k.kuning > 0) kartuHtml += `<span class="card-yellow">🟨 ${k.no}. ${k.nama}</span>`;
-                                        if (k.merah > 0) kartuHtml += `<span class="card-red">🟥 ${k.no}. ${k.nama}</span>`;
-                                    });
-                                    kartuHtml += '</div>';
-                                }
+                                const kartuTuan = kartuTim.filter(k => k.tim === m.tuan && k.pertandingan === matchKey);
+                                const kartuTamu = kartuTim.filter(k => k.tim === m.tamu && k.pertandingan === matchKey);
 
                                 function renderGolPerTim(golArray) {
                                     if (!golArray || golArray.length === 0) return '<span style="color:#4b5563;font-size:9px;">-</span>';
@@ -1031,6 +1072,23 @@
                                     }).join('');
                                 }
 
+                                function renderKartuPerTim(kartuArray) {
+                                    if (!kartuArray || kartuArray.length === 0) return '';
+                                    return kartuArray.map(k => {
+                                        const icon = k.kuning > 0 ? '🟨' : '🟥';
+                                        return `
+                                            <span class="card-item">
+                                                <span class="${k.kuning > 0 ? 'card-yellow' : 'card-red'}">${icon}</span>
+                                                <span class="card-number">${k.no}.</span>
+                                                <span class="card-name">${k.nama}</span>
+                                            </span>
+                                        `;
+                                    }).join('');
+                                }
+
+                                const adaKartu = kartuTuan.length > 0 || kartuTamu.length > 0;
+                                const adaGol = golTuan.length > 0 || golTamu.length > 0;
+
                                 return `
                                     <div class="match-card">
                                         <div class="match-score-wrap">
@@ -1039,6 +1097,8 @@
                                             <div class="match-team">${m.tamu}</div>
                                         </div>
 
+                                        <!-- GOL -->
+                                        ${adaGol ? `
                                         <div class="match-goals-wrap">
                                             <div class="match-goals-team left">
                                                 ${renderGolPerTim(golTuan)}
@@ -1056,8 +1116,21 @@
                                                 `).join('')}
                                                 ${golTamuOG.length === 0 && golTamuNormal.length === 0 ? '<span style="color:#4b5563;font-size:9px;">-</span>' : ''}
                                             </div>
-                                            ${kartuHtml}
                                         </div>
+                                        ` : ''}
+
+                                        <!-- KARTU (DI BAWAH GOL) -->
+                                        ${adaKartu ? `
+                                        <div class="match-cards-wrap">
+                                            <div class="match-cards-team left">
+                                                ${renderKartuPerTim(kartuTuan)}
+                                            </div>
+                                            <div class="match-cards-divider"></div>
+                                            <div class="match-cards-team right">
+                                                ${renderKartuPerTim(kartuTamu)}
+                                            </div>
+                                        </div>
+                                        ` : ''}
                                     </div>
                                 `;
                             }).join('')}
@@ -1201,8 +1274,9 @@
         console.log('📊 Data pertandingan sudah dimasukkan!');
         console.log('📋 Klasemen dan Top Skor otomatis terhitung!');
         console.log('⚽ Gol diurutkan per tim dengan icon bola!');
-        console.log('🟨🟥 Kartu sudah terpasang!');
+        console.log('🟨🟥 Kartu sudah terpasang di pertandingan yang sesuai!');
         console.log('📱 Responsive Mobile siap!');
+        console.log('✅ OWN GOAL sudah di-SKIP dari Top Skor!');
     </script>
 
 </body>
