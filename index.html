@@ -852,6 +852,14 @@
                             { nama: 'Kristian J O', no: 9, tim: 'Kerbangan SKD' },
                             { nama: 'Syahdan F', no: 12, tim: 'Kerbangan SKD' }
                         ]
+                    },
+                    // TAMBAHAN: Asira vs Kerbangan SKD (U15 Grup C)
+                    { tuan: 'Asira', tamu: 'Kerbangan SKD', skorTuan: 1, skorTamu: 2,
+                        gol: [
+                            { nama: 'Aldo Christian', no: 6, tim: 'Asira' },
+                            { nama: 'Markus Deno', no: 6, tim: 'Kerbangan SKD' },
+                            { nama: 'Killian G C', no: 7, tim: 'Kerbangan SKD' }
+                        ]
                     }
                 ],
                 D: [
@@ -866,7 +874,7 @@
         };
 
         // ============================================================
-        // DATA KARTU (DATA ASLI DENGAN PROPERTI PERTANDINGAN)
+        // DATA KARTU (DENGAN PROPERTI PERTANDINGAN)
         // ============================================================
 
         const kartuData = {
@@ -893,7 +901,11 @@
                 { no: 4, nama: 'Carel N T', tim: 'Persimen X Diandra', kuning: 1, merah: 0, pertandingan: 'Delirium Muara Tae vs Persimen X Diandra' },
                 
                 // Neofeliz FA vs PS Bigung - Ardi Harnoko dapat kartu di pertandingan ini
-                { no: 14, nama: 'Ardi Harnoko', tim: 'Neofeliz FA', kuning: 1, merah: 0, pertandingan: 'Neofeliz FA vs PS Bigung' }
+                { no: 14, nama: 'Ardi Harnoko', tim: 'Neofeliz FA', kuning: 1, merah: 0, pertandingan: 'Neofeliz FA vs PS Bigung' },
+
+                // TAMBAHAN: Asira vs Kerbangan SKD - Kartu kuning untuk Kerbangan
+                { no: 6, nama: 'Markus Deno', tim: 'Kerbangan SKD', kuning: 1, merah: 0, pertandingan: 'Asira vs Kerbangan SKD' },
+                { no: 14, nama: 'Dhanielo I', tim: 'Kerbangan SKD', kuning: 1, merah: 0, pertandingan: 'Asira vs Kerbangan SKD' }
             ]
         };
 
@@ -972,7 +984,7 @@
         }
 
         // ============================================================
-        // FUNGSI HITUNG TOP SKOR (DIPERBAIKI - SKIP OG)
+        // FUNGSI HITUNG TOP SKOR (SKIP OG)
         // ============================================================
 
         function hitungTopSkor(pertandinganGrup) {
@@ -983,7 +995,7 @@
                 for (const match of matches) {
                     const gol = match.gol || [];
                     for (const g of gol) {
-                        // SKIP OWN GOAL - tidak masuk top skor
+                        // SKIP OWN GOAL
                         if (g.nama.includes('(OG)')) continue;
                         
                         const key = `${g.nama}|${g.no}|${g.tim}`;
@@ -1297,6 +1309,8 @@
         console.log('🟨🟥 Kartu sudah terpasang di pertandingan yang sesuai!');
         console.log('📱 Responsive Mobile siap!');
         console.log('✅ OWN GOAL sudah di-SKIP dari Top Skor!');
+        console.log('🆕 Pertandingan Asira vs Kerbangan SKD (U15 Grup C) sudah ditambahkan!');
+        console.log('🆕 Kartu kuning Markus Deno & Dhanielo I (Kerbangan SKD) sudah ditambahkan!');
     </script>
 
 </body>
