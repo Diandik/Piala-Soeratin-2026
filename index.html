@@ -754,7 +754,6 @@
                             { nama: 'Adriel', no: 11, tim: 'Gelora Putra Sendawar' }
                         ]
                     },
-                    // TAMBAHAN: Gelora Putra Sendawar vs PS Bigung
                     { tuan: 'Gelora Putra Sendawar', tamu: 'PS Bigung', skorTuan: 1, skorTamu: 4,
                         gol: [
                             { nama: 'Chorolus', no: 13, tim: 'Gelora Putra Sendawar' },
@@ -764,7 +763,6 @@
                             { nama: 'Gerycristian W', no: 20, tim: 'PS Bigung' }
                         ]
                     },
-                    // TAMBAHAN: Petras vs Akademi Nyuatan Bersatu
                     { tuan: 'Petras', tamu: 'Akademi Nyuatan Bersatu', skorTuan: 2, skorTamu: 0,
                         gol: [
                             { nama: 'Adityanur L', no: 11, tim: 'Petras' },
@@ -793,6 +791,17 @@
                             { nama: 'Kanzey Alvaro', no: 7, tim: 'Menarung' },
                             { nama: 'Alvino', no: 11, tim: 'Menarung' },
                             { nama: 'Hardianto', no: 77, tim: 'Azellen Soccer' }
+                        ]
+                    },
+                    // PERTANDINGAN BARU: Menarung vs Kubar Soccer School
+                    { tuan: 'Menarung', tamu: 'Kubar Soccer School', skorTuan: 4, skorTamu: 2,
+                        gol: [
+                            { nama: 'Irenius J', no: 9, tim: 'Menarung' },
+                            { nama: 'Irenius J', no: 9, tim: 'Menarung' },
+                            { nama: 'Arfan T J', no: 15, tim: 'Menarung' },
+                            { nama: 'Adrian (OG)', no: 18, tim: 'Kubar Soccer School' },
+                            { nama: 'Yadi', no: 22, tim: 'Kubar Soccer School' },
+                            { nama: 'Ardiansyah (OG)', no: 4, tim: 'Menarung' }
                         ]
                     }
                 ]
@@ -826,7 +835,6 @@
                             { nama: 'Dehis R K', no: 10, tim: 'Neofeliz FA' }
                         ]
                     },
-                    // TAMBAHAN: Menarung vs Geiska Sport (U15 Grup A) - DIPINDAHKAN KE GRUP A
                     { tuan: 'Menarung', tamu: 'Geiska Sport', skorTuan: 10, skorTamu: 0,
                         gol: [
                             { nama: 'M Ricardo K', no: 6, tim: 'Menarung' },
@@ -868,7 +876,6 @@
                             { nama: 'Syahdan F', no: 12, tim: 'Kerbangan SKD' }
                         ]
                     },
-                    // TAMBAHAN: Asira vs Kerbangan SKD (U15 Grup C)
                     { tuan: 'Asira', tamu: 'Kerbangan SKD', skorTuan: 1, skorTamu: 2,
                         gol: [
                             { nama: 'Aldo Christian', no: 6, tim: 'Asira' },
@@ -889,18 +896,13 @@
         };
 
         // ============================================================
-        // DATA KARTU (DENGAN PROPERTI PERTANDINGAN)
+        // DATA KARTU
         // ============================================================
 
         const kartuData = {
             u13: [
-                // Jaya Prana vs Persimuja - Kartu untuk Lexsi (Jaya Prana)
                 { no: 0, nama: 'Lexsi', tim: 'Jaya Prana', kuning: 1, merah: 0, pertandingan: 'Jaya Prana vs Persimuja' },
-                
-                // Akademi Nyuatan Bersatu vs PS Bigung - Kartu untuk Frafael JM (Akademi)
                 { no: 12, nama: 'Frafael J M', tim: 'Akademi Nyuatan Bersatu', kuning: 1, merah: 0, pertandingan: 'Akademi Nyuatan Bersatu vs PS Bigung' },
-                
-                // TAMBAHAN: Gelora Putra Sendawar vs PS Bigung - Kartu untuk Yoel Y (PS Bigung)
                 { no: 5, nama: 'Yoel Y', tim: 'PS Bigung', kuning: 1, merah: 0, pertandingan: 'Gelora Putra Sendawar vs PS Bigung' }
             ],
             u15: [
@@ -915,14 +917,16 @@
                 // Delirium Muara Tae vs Persimen X Diandra
                 { no: 4, nama: 'Carel N T', tim: 'Persimen X Diandra', kuning: 1, merah: 0, pertandingan: 'Delirium Muara Tae vs Persimen X Diandra' },
                 
-                // Neofeliz FA vs PS Bigung - Ardi Harnoko dapat kartu di pertandingan ini
+                // NEOFELIZ FA vs PS BIGUNG - KARTU KUNING BARU
                 { no: 14, nama: 'Ardi Harnoko', tim: 'Neofeliz FA', kuning: 1, merah: 0, pertandingan: 'Neofeliz FA vs PS Bigung' },
+                { no: 10, nama: 'Dehis R K', tim: 'Neofeliz FA', kuning: 1, merah: 0, pertandingan: 'Neofeliz FA vs PS Bigung' },
+                { no: 95, nama: 'Gabriel D', tim: 'PS Bigung', kuning: 1, merah: 0, pertandingan: 'Neofeliz FA vs PS Bigung' },
 
-                // TAMBAHAN: Asira vs Kerbangan SKD - Kartu kuning untuk Kerbangan
+                // Asira vs Kerbangan SKD
                 { no: 6, nama: 'Markus Deno', tim: 'Kerbangan SKD', kuning: 1, merah: 0, pertandingan: 'Asira vs Kerbangan SKD' },
                 { no: 14, nama: 'Dhanielo I', tim: 'Kerbangan SKD', kuning: 1, merah: 0, pertandingan: 'Asira vs Kerbangan SKD' },
 
-                // TAMBAHAN: Menarung vs Geiska Sport - Kartu kuning untuk Geiska (GRUP A)
+                // Menarung vs Geiska Sport
                 { no: 9, nama: 'Tadeus B', tim: 'Geiska Sport', kuning: 1, merah: 0, pertandingan: 'Menarung vs Geiska Sport' }
             ]
         };
@@ -1013,7 +1017,6 @@
                 for (const match of matches) {
                     const gol = match.gol || [];
                     for (const g of gol) {
-                        // SKIP OWN GOAL
                         if (g.nama.includes('(OG)')) continue;
                         
                         const key = `${g.nama}|${g.no}|${g.tim}`;
@@ -1087,12 +1090,11 @@
                             <div class="sub-title">📋 Hasil Pertandingan</div>
                             ${matches.map(m => {
                                 const matchKey = `${m.tuan} vs ${m.tamu}`;
-                                const golTuan = (m.gol || []).filter(g => g.tim === m.tuan);
-                                const golTamu = (m.gol || []).filter(g => g.tim === m.tamu);
-                                const golTamuOG = golTamu.filter(g => g.nama.includes('(OG)'));
-                                const golTamuNormal = golTamu.filter(g => !g.nama.includes('(OG)'));
+                                const golTuan = (m.gol || []).filter(g => g.tim === m.tuan && !g.nama.includes('(OG)'));
+                                const golTuanOG = (m.gol || []).filter(g => g.tim === m.tuan && g.nama.includes('(OG)'));
+                                const golTamu = (m.gol || []).filter(g => g.tim === m.tamu && !g.nama.includes('(OG)'));
+                                const golTamuOG = (m.gol || []).filter(g => g.tim === m.tamu && g.nama.includes('(OG)'));
 
-                                // Kartu berdasarkan pertandingan
                                 const kartuTim = kartuData[kategori] || [];
                                 const kartuTuan = kartuTim.filter(k => k.tim === m.tuan && k.pertandingan === matchKey);
                                 const kartuTamu = kartuTim.filter(k => k.tim === m.tamu && k.pertandingan === matchKey);
@@ -1103,20 +1105,32 @@
                                     golArray.forEach(g => {
                                         const key = `${g.nama}|${g.no}`;
                                         if (!grouped[key]) {
-                                            grouped[key] = { nama: g.nama, no: g.no, count: 0, isOG: g.nama.includes('(OG)') };
+                                            grouped[key] = { nama: g.nama, no: g.no, count: 0 };
                                         }
                                         grouped[key].count += 1;
                                     });
                                     return Object.values(grouped).map(g => {
-                                        const isOG = g.nama.includes('(OG)');
-                                        const namaClean = g.nama.replace(' (OG)', '');
                                         const balls = '⚽'.repeat(g.count);
                                         return `
                                             <span class="goal-item">
                                                 <span class="goal-balls">${balls}</span>
                                                 <span class="goal-number">${g.no}.</span>
+                                                <span class="goal-name">${g.nama}</span>
+                                            </span>
+                                        `;
+                                    }).join('');
+                                }
+
+                                function renderGolOG(golArray) {
+                                    if (!golArray || golArray.length === 0) return '';
+                                    return golArray.map(g => {
+                                        const namaClean = g.nama.replace(' (OG)', '');
+                                        return `
+                                            <span class="goal-item">
+                                                <span class="goal-balls">⚽</span>
+                                                <span class="goal-number">${g.no}.</span>
                                                 <span class="goal-name">${namaClean}</span>
-                                                ${isOG ? `<span class="goal-og-label">OG</span>` : ''}
+                                                <span class="goal-og-label">OG</span>
                                             </span>
                                         `;
                                     }).join('');
@@ -1137,7 +1151,7 @@
                                 }
 
                                 const adaKartu = kartuTuan.length > 0 || kartuTamu.length > 0;
-                                const adaGol = golTuan.length > 0 || golTamu.length > 0;
+                                const adaGol = golTuan.length > 0 || golTamu.length > 0 || golTuanOG.length > 0 || golTamuOG.length > 0;
 
                                 return `
                                     <div class="match-card">
@@ -1147,29 +1161,20 @@
                                             <div class="match-team">${m.tamu}</div>
                                         </div>
 
-                                        <!-- GOL -->
                                         ${adaGol ? `
                                         <div class="match-goals-wrap">
                                             <div class="match-goals-team left">
                                                 ${renderGolPerTim(golTuan)}
+                                                ${renderGolOG(golTuanOG)}
                                             </div>
                                             <div class="match-goals-divider">⚡</div>
                                             <div class="match-goals-team right">
-                                                ${renderGolPerTim(golTamuNormal)}
-                                                ${golTamuOG.map(g => `
-                                                    <span class="goal-item">
-                                                        <span class="goal-balls">⚽</span>
-                                                        <span class="goal-number">${g.no}.</span>
-                                                        <span class="goal-name">${g.nama.replace(' (OG)', '')}</span>
-                                                        <span class="goal-og-label">OG</span>
-                                                    </span>
-                                                `).join('')}
-                                                ${golTamuOG.length === 0 && golTamuNormal.length === 0 ? '<span style="color:#4b5563;font-size:9px;">-</span>' : ''}
+                                                ${renderGolPerTim(golTamu)}
+                                                ${renderGolOG(golTamuOG)}
                                             </div>
                                         </div>
                                         ` : ''}
 
-                                        <!-- KARTU (DI BAWAH GOL) -->
                                         ${adaKartu ? `
                                         <div class="match-cards-wrap">
                                             <div class="match-cards-team left">
@@ -1206,15 +1211,12 @@
 
             let html = '';
             topSkor.forEach((item, idx) => {
-                const isOG = item.nama.includes('(OG)');
-                const namaClean = item.nama.replace(' (OG)', '');
                 html += `
                     <div class="top-skor-item">
                         <span>
                             <span style="color:#6b7280;margin-right:8px;font-weight:700;">${idx + 1}.</span>
-                            <span class="nama">${item.no}. ${namaClean}</span>
+                            <span class="nama">${item.no}. ${item.nama}</span>
                             <span class="tim">(${item.tim})</span>
-                            ${isOG ? `<span style="color:#ef4444;font-size:9px;font-weight:700;background:rgba(239,68,68,0.15);padding:1px 5px;border-radius:3px;">OG</span>` : ''}
                         </span>
                         <span class="gol">${item.gol} Gol</span>
                     </div>
@@ -1233,12 +1235,6 @@
                 return;
             }
 
-            const sortedKartu = [...kartu].sort((a, b) => {
-                if (a.kuning > 0 && b.kuning === 0) return -1;
-                if (a.kuning === 0 && b.kuning > 0) return 1;
-                return a.nama.localeCompare(b.nama);
-            });
-
             let html = `
                 <table class="kartu-table">
                     <thead>
@@ -1247,12 +1243,13 @@
                             <th style="text-align:left">Nama Pemain</th>
                             <th style="text-align:left">Tim</th>
                             <th>Kartu</th>
+                            <th style="text-align:left">Pertandingan</th>
                         </tr>
                     </thead>
                     <tbody>
             `;
 
-            sortedKartu.forEach(item => {
+            kartu.forEach(item => {
                 let kartuHtml = '';
                 if (item.kuning > 0) {
                     kartuHtml += `<span class="badge-kuning">🟨 ${item.kuning}</span>`;
@@ -1268,6 +1265,7 @@
                         <td style="text-align:left;font-weight:600;color:#e0e0e0;font-size:11px;">${item.nama}</td>
                         <td style="text-align:left;color:#9ca3af;font-size:11px;">${item.tim}</td>
                         <td>${kartuHtml}</td>
+                        <td style="text-align:left;color:#6b7280;font-size:10px;">${item.pertandingan || '-'}</td>
                     </tr>
                 `;
             });
@@ -1321,14 +1319,10 @@
         });
 
         console.log('🏆 Piala Soeratin 2026 - Kutai Barat');
-        console.log('📊 Data pertandingan sudah dimasukkan!');
+        console.log('✅ Semua data pertandingan dan kartu sudah diupdate!');
         console.log('📋 Klasemen dan Top Skor otomatis terhitung!');
-        console.log('⚽ Gol diurutkan per tim dengan icon bola!');
-        console.log('🟨🟥 Kartu sudah terpasang di pertandingan yang sesuai!');
-        console.log('📱 Responsive Mobile siap!');
-        console.log('✅ OWN GOAL sudah di-SKIP dari Top Skor!');
-        console.log('🆕 Pertandingan Menarung vs Geiska Sport (U15 Grup A) sudah ditambahkan!');
-        console.log('🆕 Kartu kuning Tadeus B (Geiska Sport) sudah ditambahkan!');
+        console.log('🆕 U13 Grup C: Menarung vs Kubar Soccer School 4-2');
+        console.log('🆕 U15 Grup A: Kartu kuning Neofeliz #14 Ardi Harnoko, #10 Dehis R K, PS Bigung #95 Gabriel D');
     </script>
 
 </body>
