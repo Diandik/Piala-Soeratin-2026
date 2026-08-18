@@ -105,7 +105,8 @@
             backdrop-filter: blur(10px);
         }
 
-        .tabs button {
+        .tabs button,
+        .tabs a {
             flex: 1;
             padding: 12px 0;
             border: none;
@@ -117,13 +118,26 @@
             transition: 0.3s;
             border-bottom: 3px solid transparent;
             letter-spacing: 0.5px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
         }
 
-        .tabs button:hover {
+        .tabs button:hover,
+        .tabs a:hover {
             color: #e0e0e0;
         }
 
         .tabs button.active {
+            color: #F9A825;
+            border-bottom-color: #F9A825;
+        }
+
+        .tabs a {
+            color: #6b7280;
+        }
+
+        .tabs a:hover {
             color: #F9A825;
             border-bottom-color: #F9A825;
         }
@@ -659,6 +673,7 @@
     <div class="tabs" id="tabHeader">
         <button class="active" data-tab="tabU13">🤩 U-13</button>
         <button data-tab="tabU15">⭐ U-15</button>
+        <a href="https://diandik.github.io/8-Besar-Piala-Soeratin-2026/" target="_blank" rel="noopener noreferrer">🏆 FASE 8 BESAR</a>
     </div>
 
     <!-- ===== CONTENT ===== -->
@@ -854,6 +869,14 @@
                             { nama: 'M Syahrul', no: 10, tim: 'Menarung' },
                             { nama: 'M Syahrul', no: 10, tim: 'Menarung' }
                         ]
+                    },
+                    // PERTANDINGAN BARU: Geiska Sport vs PS Bigung
+                    { tuan: 'Geiska Sport', tamu: 'PS Bigung', skorTuan: 1, skorTamu: 2,
+                        gol: [
+                            { nama: 'Rangga K', no: 11, tim: 'Geiska Sport' },
+                            { nama: 'Fernandes A', no: 10, tim: 'PS Bigung' },
+                            { nama: 'Gabriel D', no: 95, tim: 'PS Bigung' }
+                        ]
                     }
                 ],
                 B: [
@@ -933,7 +956,10 @@
                 { no: 14, nama: 'Dhanielo I', tim: 'Kerbangan SKD', kuning: 1, merah: 0, pertandingan: 'Asira vs Kerbangan SKD' },
 
                 // Menarung vs Geiska Sport
-                { no: 9, nama: 'Tadeus B', tim: 'Geiska Sport', kuning: 1, merah: 0, pertandingan: 'Menarung vs Geiska Sport' }
+                { no: 9, nama: 'Tadeus B', tim: 'Geiska Sport', kuning: 1, merah: 0, pertandingan: 'Menarung vs Geiska Sport' },
+
+                // Geiska Sport vs PS Bigung - KARTU KUNING BARU
+                { no: 5, nama: 'Gabra M', tim: 'Geiska Sport', kuning: 1, merah: 0, pertandingan: 'Geiska Sport vs PS Bigung' }
             ]
         };
 
@@ -1327,7 +1353,10 @@
         console.log('🏆 Piala Soeratin 2026 - Kutai Barat');
         console.log('✅ Semua data pertandingan dan kartu sudah diupdate!');
         console.log('📋 Klasemen dan Top Skor otomatis terhitung!');
-        console.log('🆕 U13 Grup A: Jaya Prana vs Persimen X Diandra 1-0 (Oxel S D #19)');
+        console.log('🆕 U15 Grup A: Geiska Sport vs PS Bigung 1-2');
+        console.log('   ⚽ Geiska: Rangga K #11');
+        console.log('   ⚽ PS Bigung: Fernandes A #10, Gabriel D #95');
+        console.log('   🟨 Geiska: Gabra M #5');
     </script>
 
 </body>
